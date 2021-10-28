@@ -9,6 +9,7 @@
       :pull-up-load="true"
       @pullingUp="loadMore"
     >
+      <HomeCarousel :banners="banners" />
       <home-swiper :banners="banners" />
       <!-- <recommend-view :recommends="recommends" /> -->
       <feature-view />
@@ -25,9 +26,10 @@
 </template>
 
 <script>
-import HomeSwiper from "./childComps/HomeSwiper";
-import RecommendView from "./childComps/RecommendView";
+// import HomeSwiper from "./childComps/HomeSwiper";
+// import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
+import HomeCarousel from "./childComps/HomeCarousel.vue";
 
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
@@ -40,7 +42,8 @@ import { getHomeMultidata, getHomeGoods } from "network/home";
 export default {
   name: "Home",
   components: {
-    HomeSwiper,
+    HomeCarousel,
+    // HomeSwiper,
     // RecommendView,
     FeatureView,
     NavBar,
@@ -70,7 +73,6 @@ export default {
   created() {
     // 1.请求多个数据
     this.getHomeMultidata();
-
     // 2.请求商品数据
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
@@ -107,6 +109,7 @@ export default {
      */
     getHomeMultidata() {
       getHomeMultidata().then((res) => {
+        console.log(res.data.banner.list);
         // this.result = res;
         this.banners = res.data.banner.list;
         this.recommends = res.data.recommend.list;
@@ -115,9 +118,9 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
       getHomeGoods(type, page).then((res) => {
+        console.log(res);
         this.goods[type].list.push(...res.data.list);
         this.goods[type].page += 1;
-
         this.$refs.scroll.finishPullUp();
       });
     },

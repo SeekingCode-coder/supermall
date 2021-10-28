@@ -1,9 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
+import VueRouter from 'vue-router'
 import router from './router'
-Vue.config.productionTip = false
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
-new Vue({
+Vue.config.productionTip = false
+Vue.use(VueRouter)
+Vue.use(ElementUI);
+
+const VM = new Vue({
   render: h => h(App),
   router: router
 }).$mount('#app')

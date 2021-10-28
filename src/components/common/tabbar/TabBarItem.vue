@@ -24,8 +24,6 @@ export default {
   },
   computed: {
     isActive() {
-      console.log(this.$route.path.indexOf("/category"));
-      console.log(this.$route.path);
       return this.$route.path.indexOf(this.path) !== -1;
     },
     activeStyle() {
