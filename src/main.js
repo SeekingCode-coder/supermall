@@ -11,5 +11,9 @@ Vue.use(ElementUI);
 
 const VM = new Vue({
   render: h => h(App),
-  router: router
+  router: router,
+  beforeCreate() {
+    Vue.prototype.$bus = this //安装全局事件总线
+  },
 }).$mount('#app')
+console.log(VM);

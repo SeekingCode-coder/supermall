@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-carousel indicator-position="outside" height="200px">
-      <el-carousel-item v-for="(item, id) in items" :key="id">
+      <el-carousel-item v-for="(item, id) in banners" :key="id">
         <a :href="item.link">
           <img :src="item.image" alt="" class="imgs" />
         </a>

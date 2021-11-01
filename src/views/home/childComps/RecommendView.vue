@@ -1,6 +1,10 @@
 <template>
   <div class="recommend">
-    <div v-for="item in recommends" class="recommend-item" v-bind:key="item">
+    <div
+      v-for="(item, index) in recommends"
+      class="recommend-item"
+      v-bind:key="index"
+    >
       <a :href="item.link">
         <img :src="item.image" alt="" />
         <div>{{ item.title }}</div>
@@ -24,6 +28,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
 .recommend {
   display: flex;
   width: 100%;

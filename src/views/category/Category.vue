@@ -125,13 +125,17 @@ export default {
   },
   // 组件创建完后调用
   mounted() {
+    //probeType: 0,1表示不侦测实时位置
+    //probeType: 2表示手指离开的时候不侦测
+    //probeType: 3只要滚动，都侦测
+
     this.scroll = new BScroll(this.$refs.aaaa, {
-      // probeType: 3,
-      // pullUpLoad: true
+      //   probeType: 3,
+      //   pullUpLoad: true,
     });
 
     this.scroll.on("scroll", (position) => {
-      console.log(position);
+      //   console.log(position);
     });
 
     this.scroll.on("pullingUp", () => {
