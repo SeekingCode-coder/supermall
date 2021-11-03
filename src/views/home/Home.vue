@@ -75,6 +75,7 @@ export default {
       isShowBackTop: false,
       tabControl_offsetTop: 0,
       isTabControlFixed: false,
+      savePositionY: 0,
     };
   },
   computed: {
@@ -125,6 +126,7 @@ export default {
       this.isShowBackTop = -position.y > 1000;
       //设置tabControl的固定位置
       this.isTabControlFixed = -position.y > this.tabControl_offsetTop;
+      this.savePositionY = -position.y;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
@@ -165,6 +167,14 @@ export default {
     });
   },
   watch: {},
+  activated() {
+    console.log(this.savePositionY);
+    this.$refs.scroll.scrollTo(0, this.savePositionY, 0);
+  },
+  deactivated() {
+    this.savePositionY = this.$refs.scroll.y;
+    console.log(this.savePositionY);
+  },
 };
 </script>
 
@@ -172,7 +182,7 @@ export default {
 #home {
   /* padding-top: 44px; */
   /* 下面这两行代码会阻止电子maintarbar */
-  height: 100vh;
+  height: 90vh;
   position: relative;
 }
 
@@ -194,7 +204,7 @@ export default {
 }
 
 .content {
-  height: calc(100% - 93px);
+  height: calc(100% - 30px);
   overflow: hidden;
   position: absolute;
   top: 44px;

@@ -10,24 +10,43 @@ const Home = () => import('../views/home/Home')
 const Category = () => import('../views/category/Category')
 const Cart = () => import('../views/cart/Cart')
 const Profile = () => import('../views/profile/Profile')
+const Detail = () => import('../views/detail/Detail')
 
 
 export default new VueRouter({
   routes: [{
       path: '/home',
-      component: Home
+      component: Home,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/category',
-      component: Category
+      component: Category,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/cart',
-      component: Cart
+      component: Cart,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/profile',
-      component: Profile
+      component: Profile,
+      meta: {
+        keepAlive: false
+      }
+    }, {
+      path: '/detail',
+      component: Detail,
+      meta: {
+        keepAlive: false
+      }
     }
   ],
   mode: 'history'
