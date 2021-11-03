@@ -1,6 +1,14 @@
 <template>
   <div id="home" class="wrapper">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control
+      class="tab-control"
+      :titles="['流行', '新款', '精选']"
+      @tabClick="tabClick"
+      ref="tabControl"
+      v-show="isTabControlFixed"
+      :curIndex="getTabControlIndex"
+    />
     <scroll
       class="content"
       ref="scroll"
@@ -9,7 +17,7 @@
       @scroll="contentScroll"
       @pullingUp="loadMore"
     >
-      <HomeCarousel :banners="banners" />
+      <HomeCarousel :banners="banners" @carouselImgLoad="carouselImgLoad" />
       <!-- <home-swiper :banners="banners" /> -->
       <recommend-view :recommends="recommends" />
       <feature-view />
@@ -17,6 +25,8 @@
         class="tab-control"
         :titles="['流行', '新款', '精选']"
         @tabClick="tabClick"
+        ref="tabControl"
+        :curIndex="getTabControlIndex"
       />
       <good-list :goods="showGoods" />
     </scroll>
@@ -63,11 +73,24 @@ export default {
       },
       currentType: "pop",
       isShowBackTop: false,
+      tabControl_offsetTop: 0,
+      isTabControlFixed: false,
     };
   },
   computed: {
     showGoods() {
       return this.goods[this.currentType].list;
+    },
+    getTabControlIndex() {
+      switch (this.currentType) {
+        case "pop":
+          return 0;
+        case "new":
+          return 1;
+        case "sell":
+          return 2;
+      }
+      return 0;
     },
   },
   created() {
@@ -100,6 +123,8 @@ export default {
     },
     contentScroll(position) {
       this.isShowBackTop = -position.y > 1000;
+      //设置tabControl的固定位置
+      this.isTabControlFixed = -position.y > this.tabControl_offsetTop;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
@@ -121,6 +146,15 @@ export default {
         this.goods[type].page += 1;
         this.$refs.scroll.finishPullUp();
       });
+      //   getHomeGoods(type, page).then((res) => {
+      //     this.goods[type].list.push(...res.data.list);
+      //     this.goods[type].page += 1;
+      //     this.$refs.scroll.finishPullUp();
+      //   });
+    },
+    carouselImgLoad() {
+      //獲取tabControl的offset，通過$el可以獲取真實組件
+      this.tabControl_offsetTop = this.$refs.tabControl.$el.offsetTop;
     },
   },
   mounted() {
@@ -130,6 +164,7 @@ export default {
       refresh();
     });
   },
+  watch: {},
 };
 </script>
 

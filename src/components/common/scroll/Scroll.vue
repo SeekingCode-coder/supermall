@@ -43,8 +43,8 @@ export default {
 
     // 3.监听上拉事件
     this.scroll.on("pullingUp", () => {
+      //   console.log("监听滚动到底部");
       this.$emit("pullingUp");
-      console.log("====");
     });
   },
   methods: {

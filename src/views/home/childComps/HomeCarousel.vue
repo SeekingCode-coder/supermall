@@ -3,7 +3,7 @@
     <el-carousel indicator-position="outside" height="200px">
       <el-carousel-item v-for="(item, id) in banners" :key="id">
         <a :href="item.link">
-          <img :src="item.image" alt="" class="imgs" />
+          <img :src="item.image" alt="" class="imgs" @load="ImgLoad" />
         </a>
       </el-carousel-item>
     </el-carousel>
@@ -13,7 +13,7 @@
 <script>
 export default {
   data() {
-    return { items: [] };
+    return { items: [], isLoad: false };
   },
   props: {
     banners: {
@@ -26,6 +26,14 @@ export default {
       this.items.forEach((element) => {
         console.log(element.link);
       });
+    },
+  },
+  methods: {
+    ImgLoad() {
+      if (!this.isLoad) {
+        this.$emit("carouselImgLoad");
+        this.isLoad = true;
+      }
     },
   },
 };

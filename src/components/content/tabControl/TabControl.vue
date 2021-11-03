@@ -22,6 +22,9 @@ export default {
         return [];
       },
     },
+    curIndex: {
+      type: Number,
+    },
   },
   data() {
     return {
@@ -32,6 +35,12 @@ export default {
     itemClick(index) {
       this.currentIndex = index;
       this.$emit("tabClick", index);
+    },
+  },
+  watch: {
+    curIndex(newvalue, oldValue) {
+      console.log(newvalue);
+      this.currentIndex = newvalue;
     },
   },
 };
