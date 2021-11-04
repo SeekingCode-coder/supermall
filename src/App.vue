@@ -2,8 +2,9 @@
   <div id="app">
     <main-tab-bar />
     <keep-alive>
-      <router-view> </router-view>
+      <router-view v-if="this.$route.meta.keepAlive"> </router-view>
     </keep-alive>
+    <router-view v-if="!this.$route.meta.keepAlive"> </router-view>
   </div>
 </template>
 

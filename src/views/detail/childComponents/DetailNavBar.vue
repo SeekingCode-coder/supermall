@@ -13,12 +13,14 @@
         >
           {{ item }}
         </div>
-      </div></nav-bar
-    >
+      </div>
+    </nav-bar>
   </div>
 </template>
 <script>
 import NavBar from "components/common/navbar/NavBar";
+
+import { getDetail } from "network/detail";
 export default {
   name: "DetailNavBar",
   components: {
