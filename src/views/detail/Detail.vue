@@ -1,51 +1,16 @@
 <template>
   <div id="detail">
     <detail-nav-bar />
-    <scroll class="content" :probe-type="3" :pull-up-load="true">
+    <scroll
+      class="content"
+      ref="scroll"
+      :probe-type="3"
+      :pull-up-load="true"
+      @pullingUp="loadMore"
+    >
       <detail-carousel :banners="topImages" />
       <detail-base-info :goods="goods" />
-      <detail-shop-info />
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
-      <div>1</div>
+      <detail-shop-info :shop="shop" />
     </scroll>
   </div>
 </template>
@@ -55,7 +20,7 @@ import DetailCarousel from "./childComponents/DetailCarousel.vue";
 
 import { getDetail, Goods, Shop } from "network/detail";
 import DetailBaseInfo from "./childComponents/DetailBaseInfo.vue";
-import Scroll from "../../common/scroll/Scroll.vue";
+import Scroll from "components/common/scroll/Scroll.vue";
 import DetailShopInfo from "./childComponents/DetailShopInfo.vue";
 export default {
   components: {
@@ -83,6 +48,13 @@ export default {
       //获取商家信息
       this.shop = new Shop(res.result.shopInfo);
     });
+  },
+  methods: {
+    loadMore() {
+      //刷新scrollheight
+      this.$refs.scroll.refresh();
+      this.$refs.scroll.finishPullUp();
+    },
   },
 };
 </script>
