@@ -168,12 +168,10 @@ export default {
   },
   watch: {},
   activated() {
-    console.log(this.savePositionY);
     this.$refs.scroll.scrollTo(0, this.savePositionY, 0);
   },
   deactivated() {
     this.savePositionY = this.$refs.scroll.y;
-    console.log(this.savePositionY);
   },
 };
 </script>

@@ -55,7 +55,6 @@ export default {
   padding-bottom: 5px;
   color: gray;
   font-size: 14px;
-  border-bottom: solid 1px lightgray;
 }
 .info-price {
   margin: 10px 0;

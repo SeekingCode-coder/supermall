@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-carousel indicator-position="outside">
+    <el-carousel indicator-position="outside" ref="carousel">
       <el-carousel-item v-for="(item, id) in banners" :key="id">
         <img :src="item" alt="" class="imgs" />
       </el-carousel-item>

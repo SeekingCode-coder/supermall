@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemclick">
-    <img :src="goodsItem.show.img" alt="" @load="imgLoad" />
+    <img :src="src" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -20,6 +20,11 @@ export default {
       },
     },
   },
+  data() {
+    return {
+      src: "",
+    };
+  },
   methods: {
     imgLoad() {
       this.$bus.$emit("itemImgLoad");
@@ -32,6 +37,15 @@ export default {
         },
       });
     },
+  },
+  mounted() {
+    //为了处理vue中出现的undefined的错误
+    //   因为此时的推荐商品和首页的图片的属性名不一样
+    try {
+      this.src = this.goodsItem.show.img;
+    } catch (error) {
+      this.src = this.goodsItem.image;
+    }
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shop-Info">
     <div class="shop-header" v-if="shop !== null">
       <img :src="shop.logo" alt="" class="shop-logo" />
       <span class="shop-name">{{ shop.name }}</span>
@@ -40,6 +40,9 @@
         </div>
       </div>
     </div>
+    <div class="shop-footer" v-if="shop !== null">
+      <el-button id="button">全部宝贝</el-button>
+    </div>
   </div>
 </template>
 <script>
@@ -56,7 +59,6 @@ export default {
   },
   computed: {
     getSells() {
-      console.log(this.shop);
       return math.round((this.shop.sells * 1.0) / 10000, 2);
     },
   },
@@ -72,6 +74,11 @@ export default {
 };
 </script>
 <style scoped>
+.shop-Info {
+  padding: 30px 0;
+  border-top: solid 1px lightgray;
+  border-bottom: solid 3px lightgray;
+}
 .shop-header {
   display: flex;
   /* justify-content: left; */
@@ -129,5 +136,14 @@ export default {
   margin-top: 8px;
   margin-left: 40px;
   justify-content: space-between;
+}
+.shop-footer {
+  display: flex;
+  justify-content: center;
+}
+#button {
+  width: 150px;
+  line-height: 1px;
+  background-color: #f2f2f2;
 }
 </style>

@@ -8,7 +8,7 @@
 
 <script>
 import BScroll from "better-scroll";
-
+import { debounce } from "common/utils";
 export default {
   name: "Scroll",
   props: {
@@ -25,6 +25,7 @@ export default {
     return {
       scroll: null,
       message: "哈哈哈",
+      isTimeOut: true,
     };
   },
   mounted() {
@@ -38,13 +39,27 @@ export default {
     // 2.监听滚动的位置
     this.scroll.on("scroll", (position) => {
       // console.log(position);
-      this.$emit("scroll", position);
+      //   this.$emit("scroll", position);
+      if (this.isTimeOut) {
+        this.$emit("scroll", position);
+        this.isTimeOut = false;
+        setTimeout(() => {
+          this.isTimeOut = true;
+        }, 1000);
+      }
     });
 
     // 3.监听上拉事件
     this.scroll.on("pullingUp", () => {
       //   console.log("监听滚动到底部");
-      this.$emit("pullingUp");
+
+      if (this.isTimeOut) {
+        this.$emit("pullingUp");
+        this.isTimeOut = false;
+        setTimeout(() => {
+          this.isTimeOut = true;
+        }, 1000);
+      }
     });
   },
   methods: {

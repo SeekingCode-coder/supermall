@@ -11,7 +11,7 @@
           class="item-title"
           :class="{ active: index === currentIndex }"
         >
-          {{ item }}
+          <span @click="changeItem(index)">{{ item }}</span>
         </div>
       </div>
     </nav-bar>
@@ -29,12 +29,20 @@ export default {
   data() {
     return {
       titles: ["商品", "参数", "评论", "推荐"],
-      currentIndex: 0,
     };
+  },
+  props: {
+    currentIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   methods: {
     back() {
       this.$router.back();
+    },
+    changeItem(index) {
+      this.$emit("change", index);
     },
   },
 };
