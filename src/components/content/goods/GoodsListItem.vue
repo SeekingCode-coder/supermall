@@ -1,6 +1,6 @@
 <template>
   <div class="goods-item" @click="itemclick">
-    <img :src="src" alt="" @load="imgLoad" />
+    <img :src="getImg" alt="" @load="imgLoad" />
     <div class="goods-info">
       <p>{{ goodsItem.title }}</p>
       <span class="price">{{ goodsItem.price }}</span>
@@ -27,7 +27,9 @@ export default {
   },
   methods: {
     imgLoad() {
-      this.$bus.$emit("itemImgLoad");
+      if (this.$route.path.indexOf("home")) {
+        this.$bus.$emit("itemImgLoad");
+      }
     },
     itemclick() {
       this.$router.push({
@@ -38,14 +40,23 @@ export default {
       });
     },
   },
+  computed: {
+    getImg: function () {
+      try {
+        return this.goodsItem.show.img;
+      } catch (error) {
+        return this.goodsItem.image;
+      }
+    },
+  },
   mounted() {
     //为了处理vue中出现的undefined的错误
     //   因为此时的推荐商品和首页的图片的属性名不一样
-    try {
-      this.src = this.goodsItem.show.img;
-    } catch (error) {
-      this.src = this.goodsItem.image;
-    }
+    // try {
+    //   this.src = this.goodsItem.show.img;
+    // } catch (error) {
+    //   this.src = this.goodsItem.image;
+    // }
   },
 };
 </script>

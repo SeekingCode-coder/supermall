@@ -25,7 +25,8 @@ export default {
     return {
       scroll: null,
       message: "哈哈哈",
-      isTimeOut: true,
+      isScollTimeOut: true,
+      isPullingUpTimeOut: true,
     };
   },
   mounted() {
@@ -40,24 +41,25 @@ export default {
     this.scroll.on("scroll", (position) => {
       // console.log(position);
       //   this.$emit("scroll", position);
-      if (this.isTimeOut) {
+      if (this.isScollTimeOut) {
         this.$emit("scroll", position);
-        this.isTimeOut = false;
+        this.isScollTimeOut = false;
         setTimeout(() => {
-          this.isTimeOut = true;
-        }, 1000);
+          this.isScollTimeOut = true;
+        }, 100);
       }
     });
 
     // 3.监听上拉事件
     this.scroll.on("pullingUp", () => {
       //   console.log("监听滚动到底部");
+      //   this.$emit("pullingUp");
 
-      if (this.isTimeOut) {
+      if (this.isPullingUpTimeOut) {
         this.$emit("pullingUp");
-        this.isTimeOut = false;
+        this.isPullingUpTimeOut = false;
         setTimeout(() => {
-          this.isTimeOut = true;
+          this.isPullingUpTimeOut = true;
         }, 1000);
       }
     });

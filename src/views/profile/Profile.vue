@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroll class="content">
+    <scroll class="content" ref="scroll" :probe-type="3" :pull-up-load="true">
       <ul>
         <li>个人信息1</li>
         <li>个人信息2</li>
@@ -108,12 +108,26 @@
 </template>
 
 <script>
-//   import Scroll from 'components/common/scroll/Scroll'
+import Scroll from "components/common/scroll/Scroll";
 
 export default {
   name: "Profile",
   components: {
-    //   Scroll
+    Scroll,
+  },
+  data() {
+    return {
+      savePositionY: 0,
+    };
+  },
+  activated() {
+    // this.$refs.scroll.refresh();
+    // this.$refs.scroll.scrollTo(0, this.savePositionY, 0);
+    // console.log("激活时" + this.savePositionY);
+  },
+  deactivated() {
+    // this.savePositionY = this.$refs.scroll.y;
+    // console.log("销毁时" + this.$refs.scroll.y);
   },
 };
 </script>

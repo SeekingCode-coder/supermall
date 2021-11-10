@@ -49,6 +49,7 @@ import BackTop from "components/content/backTop/BackTop";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
 import { debounce } from "common/utils";
+
 export default {
   name: "Home",
   components: {
@@ -62,6 +63,7 @@ export default {
     Scroll,
     BackTop,
   },
+  mixins: [],
   data() {
     return {
       banners: [],
@@ -126,7 +128,6 @@ export default {
       this.isShowBackTop = -position.y > 1000;
       //设置tabControl的固定位置
       this.isTabControlFixed = -position.y > this.tabControl_offsetTop;
-      this.savePositionY = -position.y;
     },
     loadMore() {
       this.getHomeGoods(this.currentType);
@@ -168,10 +169,12 @@ export default {
   },
   watch: {},
   activated() {
+    this.$refs.scroll.refresh();
     this.$refs.scroll.scrollTo(0, this.savePositionY, 0);
+    // console.log("激活时" + this.savePositionY);
   },
   deactivated() {
-    this.savePositionY = this.$refs.scroll.y;
+    this.savePositionY = this.$refs.scroll.scroll.y;
   },
 };
 </script>

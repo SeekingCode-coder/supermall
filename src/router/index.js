@@ -39,14 +39,14 @@ export default new VueRouter({
       path: '/profile',
       component: Profile,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     }, {
       path: '/detail',
       component: Detail,
       meta: {
         keepAlive: false
-      }
+      },
     }
   ],
   mode: 'history'
