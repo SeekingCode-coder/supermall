@@ -23,9 +23,7 @@ export default {
   watch: {
     banners: function (newval, oldval) {
       this.items = newval;
-      this.items.forEach((element) => {
-        console.log(element.link);
-      });
+      this.items.forEach((element) => {});
     },
   },
   methods: {

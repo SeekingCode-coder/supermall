@@ -49,15 +49,6 @@ export default {
       }
     },
   },
-  mounted() {
-    //为了处理vue中出现的undefined的错误
-    //   因为此时的推荐商品和首页的图片的属性名不一样
-    // try {
-    //   this.src = this.goodsItem.show.img;
-    // } catch (error) {
-    //   this.src = this.goodsItem.image;
-    // }
-  },
 };
 </script>
 

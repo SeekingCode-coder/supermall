@@ -7,6 +7,7 @@
       :probe-type="3"
       :pull-up-load="true"
       @pullingUp="loadMore"
+      @scroll="contentScroll"
     >
       <detail-carousel :banners="topImages" />
       <detail-base-info :goods="goods" />
@@ -16,6 +17,8 @@
       <detail-comments :detailcommentInfo="commentInfo" ref="comment" />
       <good-list :goods="recommend" ref="recommend" />
     </scroll>
+    <detail-bottom-bar @buy="addToCart" />
+    <back-top @click.native="backClick" v-show="isShowBackTop" />
   </div>
 </template>
 <script>
@@ -32,6 +35,8 @@ import DetailComments from "./childComponents/DetailComments.vue";
 import GoodList from "components/content/goods/GoodsList";
 
 import { getrecommend } from "network/detail";
+import DetailBottomBar from "./childComponents/DetailBottomBar.vue";
+import BackTop from "../../components/content/backTop/BackTop.vue";
 export default {
   components: {
     DetailNavBar,
@@ -43,6 +48,8 @@ export default {
     DetailParamInfo,
     DetailComments,
     GoodList,
+    DetailBottomBar,
+    BackTop,
   },
   name: "Detail",
   data() {
@@ -56,6 +63,7 @@ export default {
       commentInfo: null,
       navbarIndex: 0,
       recommend: null,
+      isShowBackTop: false,
     };
   },
   created() {
@@ -113,6 +121,23 @@ export default {
           break;
       }
     },
+    backClick() {
+      this.$refs.scroll.scrollTo(0, 0);
+    },
+    contentScroll(position) {
+      this.isShowBackTop = -position.y > 1000;
+    },
+    addToCart() {
+      const product = {};
+      product.img = this.topImages[0];
+      product.title = this.goods.title;
+      product.desc = this.detailGoodsInfo.desc;
+      product.price = this.goods.newPrice;
+      product.iid = this.iid;
+      product.shopName = this.shop.name;
+      console.log(this.$store);
+      this.$store.dispatch("addGood", product);
+    },
   },
   mounted() {
     getrecommend().then((res) => {
@@ -129,7 +154,7 @@ export default {
   height: 100vh;
 }
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 50px);
   overflow: hidden;
 }
 </style>

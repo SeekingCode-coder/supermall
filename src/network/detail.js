@@ -43,3 +43,4 @@ export class GoodsParam {
     this.image = info.images ? info.images[0] : ''
   }
 }
+export class Product {}

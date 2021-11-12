@@ -25,13 +25,9 @@ export default {
     Swiper,
     SwiperItem,
   },
-  created() {
-    console.log(this.banners);
-  },
+  created() {},
   watch: {
-    banners: function (newval, oldval) {
-      console.log(newval);
-    },
+    banners: function (newval, oldval) {},
   },
 };
 </script>
