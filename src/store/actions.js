@@ -1,7 +1,8 @@
 import {
   ADD_COUNTER,
   ADD_TO_CART,
-  DELETE_COUNTER
+  DELETE_COUNTER,
+  CHANGE_CHECKSTATUS
 } from './mutation-types'
 
 export default {
@@ -19,8 +20,14 @@ export default {
     let oldproduct = context.state.storeList.find(item => item.iid == data.iid)
     if (oldproduct) {
       if (oldproduct.count > 0) {
-        context.commit(DELETE_COUNTER, data);
+        context.commit(DELETE_COUNTER, oldproduct);
       }
+    }
+  },
+  changeCheckStatus(context, data) {
+    let oldproduct = context.state.storeList.find(item => item.iid == data.iid)
+    if (oldproduct) {
+      context.commit(CHANGE_CHECKSTATUS, oldproduct)
     }
   }
 }

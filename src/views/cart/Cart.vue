@@ -10,6 +10,7 @@
     >
       <cart-list class="cart-list" />
     </scroll>
+    <cart-bottom-bar class="cart-bottom" />
   </div>
 </template>
 
@@ -17,8 +18,9 @@
 import Scroll from "../../components/common/scroll/Scroll.vue";
 import CartNavBar from "./childComponents/CartNavBar.vue";
 import CartList from "./childComponents/CartList.vue";
+import CartBottomBar from "./childComponents/CartBottomBar.vue";
 export default {
-  components: { Scroll, CartNavBar, CartList },
+  components: { Scroll, CartNavBar, CartList, CartBottomBar },
   name: "Cart",
   methods: {
     loadMore() {
@@ -37,9 +39,8 @@ export default {
   background: lightgray;
 }
 .content {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 50px);
   overflow: hidden;
-  margin-top: 50px;
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -52,5 +53,14 @@ export default {
 }
 .cart-list {
   position: relative;
+  top: 50px;
+  bottom: 50px;
+}
+.cart-bottom {
+  position: fixed;
+  width: 100vw;
+  bottom: 48px;
+  z-index: 10;
+  background: white;
 }
 </style>

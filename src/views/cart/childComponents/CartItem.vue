@@ -8,7 +8,11 @@
       </div>
     </div>
     <div>
-      <el-checkbox class="good-content">
+      <el-checkbox
+        class="good-content"
+        v-model="isChecked"
+        @click.native="changeSelect($event)"
+      >
         <div class="good-content-right">
           <div class="good-img">
             <div class="good-img1">
@@ -19,7 +23,7 @@
             <div class="good-title-title">{{ good.title }}</div>
             <div class="good-title-price">
               {{ good.price }}
-              <div class="good-title-goodsCount">
+              <div class="good-title-goodsCount" @click.stop="">
                 <el-button-group>
                   <el-button
                     type="primary"
@@ -52,6 +56,11 @@ export default {
       type: Object,
     },
   },
+  data() {
+    return {
+      isChecked: this.good.isChecked,
+    };
+  },
   methods: {
     minus() {
       this.$store.dispatch("deleteGood", this.good);
@@ -59,6 +68,17 @@ export default {
     plus() {
       this.$store.dispatch("addGood", this.good);
     },
+    changeSelect(e) {
+      if (e.target.tagName === "INPUT") {
+        return;
+      }
+      this.good.isChecked = !this.good.isChecked;
+    },
+  },
+  mounted() {
+    this.$bus.$on("changeStatus", (data) => {
+      this.isChecked = data;
+    });
   },
 };
 </script>

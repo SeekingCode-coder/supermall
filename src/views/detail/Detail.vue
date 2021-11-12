@@ -135,7 +135,6 @@ export default {
       product.price = this.goods.newPrice;
       product.iid = this.iid;
       product.shopName = this.shop.name;
-      console.log(this.$store);
       this.$store.dispatch("addGood", product);
     },
   },

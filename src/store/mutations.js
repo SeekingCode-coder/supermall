@@ -1,7 +1,8 @@
 import {
   ADD_COUNTER,
   ADD_TO_CART,
-  DELETE_COUNTER
+  DELETE_COUNTER,
+  CHANGE_CHECKSTATUS
 } from './mutation-types'
 
 export default {
@@ -12,9 +13,13 @@ export default {
     data.count++;
   },
   [ADD_TO_CART](state, data) {
+    data.isChecked = false
     state.storeList.push(data)
   },
   [DELETE_COUNTER](state, data) {
     data.count--;
+  },
+  [CHANGE_CHECKSTATUS](state, data) {
+    data.isChecked = !data.isChecked
   }
 }
