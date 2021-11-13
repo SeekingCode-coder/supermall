@@ -2,7 +2,9 @@
   <div>
     <nav-bar class="home-nav">
       <div slot="left">
-        <el-checkbox v-model="isSelectAll">全选</el-checkbox>
+        <el-checkbox v-bind:value="SelectAll" @click.native="changeALL($event)"
+          >全选</el-checkbox
+        >
       </div>
       <div slot="right" class="right">
         <span>合计:{{ sumPrice }}</span>
@@ -51,22 +53,26 @@ export default {
   },
   methods: {
     //不知道为什么，没有商品的时候，会执行一次selectAll，有商品的时候会执行2次
-    selectAll(e, data) {
+    changeAll(e, data) {
       //el-checkbox点击触发两次事件处理方法
       //因为根元素是label，click事件绑定到了label上。
       // 因为点击label的时候，事件冒泡一次，同时会触发关联的input的change事件，导致事再次触发事件
       if (e.target.tagName === "INPUT") {
         return;
       }
-      console.log(data);
-      this.cartList.forEach((element) => {
-        element.isChecked = !this.isSelectAll;
-      });
-      //改变CartItem中的checkbox数据状态
-      this.$bus.$emit("changeStatus", !this.isSelectAll);
-    },
-    changedChecked(good) {
-      this.$store.dispatch("changeCheckStatus", good);
+      if (this.SelectALL) {
+        this.cartList.forEach((element) => {
+          element.isChecked = false;
+        });
+        //改变CartItem中的checkbox数据状态
+        this.$bus.$emit("changeStatus", false);
+      } else {
+        this.cartList.forEach((element) => {
+          element.isChecked = true;
+        });
+        //改变CartItem中的checkbox数据状态
+        this.$bus.$emit("changeStatus", true);
+      }
     },
     //判断是否全部商品都被选中
   },
